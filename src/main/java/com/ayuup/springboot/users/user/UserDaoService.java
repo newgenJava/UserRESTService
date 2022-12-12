@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDaoService {
 	
+	private static int userCount = 3;
+	
 	private static List<User> userList = new ArrayList<>();
 	static {
 		userList.add( new User( 1, "Name1" ));
@@ -17,19 +19,23 @@ public class UserDaoService {
 	}
 	
 
-	public List<User> findAllUsers() {
+	public List<User> findAll() {
 		// TODO Auto-generated method stub
 		return userList;
 	}
 	
-	public User findUserById(int id) {
+	public User findOne(int id) {
 		Predicate<? super User> predicate = user -> user.getId().equals(id);
 		User user = userList.stream().filter(predicate).findFirst().get() ;
 		
 		return user ;
 	}
 	
-	public void addUser(User user) {
+	public User save(User user) {
+		if( user.getId() == null ) {
+			user.setId(++userCount);
+		}
 		userList.add(user);
+		return user;
 	}
 }

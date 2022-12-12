@@ -47,6 +47,11 @@ public class User {
 	public void setDateTime(LocalDate dateTime) {
 		this.dateTime = dateTime;
 	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", dateTime=" + dateTime + "]";
+	}
 	
 	
 
