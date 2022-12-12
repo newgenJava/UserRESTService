@@ -16,7 +16,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"User With id=2 exists\", function(){\r",
+									"pm.test(\"Users should be more than 3\", function(){\r",
 									"    pm.response.to.be.ok;\r",
 									"    var jsonDataResponse = pm.response.json();\r",
 									"    pm.expect(jsonDataResponse).to.length.gte(3);\r",
@@ -51,9 +51,12 @@
 							"script": {
 								"exec": [
 									"pm.test(\"User With id=2 exists\", function(){\r",
-									"    pm.response.to.be.ok;\r",
 									"    var jsonDataResponse = pm.response.json();\r",
 									"    pm.expect(jsonDataResponse.name).to.eql(\"Name2\");\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check if Status is 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
 									"})"
 								],
 								"type": "text/javascript"
@@ -77,6 +80,44 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "User With ID does not exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// pm.test(\"User With id=2 exists\", function(){\r",
+									"//     var jsonDataResponse = pm.response.json();\r",
+									"//     pm.expect(jsonDataResponse.name).to.eql(\"Name2\");\r",
+									"// })\r",
+									"\r",
+									"pm.test(\"Check if Status is 404\", function(){\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/2234",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"2234"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -90,8 +131,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"User With id=2 exists\", function(){\r",
-									"    pm.response.to.be.ok;\r",
+									"pm.test(\"User With id=4 exists\", function(){\r",
+									"    pm.response.to.have.status(201);\r",
 									"    // var jsonDataResponse = pm.response.json();\r",
 									"    // pm.expect(jsonDataResponse.name).to.eql(\"Name2\");\r",
 									"})"
@@ -105,7 +146,50 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 4,\r\n    \"name\": \"Name4\",\r\n    \"dateTime\": \"2010-10-14\"\r\n}",
+							"raw": "{\r\n    \"id\": 44,\r\n    \"name\": \"Name4\",\r\n    \"dateTime\": \"2010-10-14\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User Without ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User to be created without id given\", function(){\r",
+									"    pm.response.to.have.status(201);\r",
+									"    // var jsonDataResponse = pm.response.json();\r",
+									"    // pm.expect(jsonDataResponse.name).to.eql(\"Name2\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"NameWithoutId\",\r\n    \"dateTime\": \"2010-10-14\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
