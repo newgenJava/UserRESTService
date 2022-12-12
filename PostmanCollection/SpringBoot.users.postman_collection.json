@@ -11,6 +11,21 @@
 			"item": [
 				{
 					"name": "All users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User With id=2 exists\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    var jsonDataResponse = pm.response.json();\r",
+									"    pm.expect(jsonDataResponse).to.length.gte(3);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -30,11 +45,26 @@
 				},
 				{
 					"name": "User With ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User With id=2 exists\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    var jsonDataResponse = pm.response.json();\r",
+									"    pm.expect(jsonDataResponse.name).to.eql(\"Name2\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/1",
+							"raw": "http://localhost:8080/users/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -42,7 +72,7 @@
 							"port": "8080",
 							"path": [
 								"users",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -55,6 +85,21 @@
 			"item": [
 				{
 					"name": "Create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User With id=2 exists\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    // var jsonDataResponse = pm.response.json();\r",
+									"    // pm.expect(jsonDataResponse.name).to.eql(\"Name2\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],

@@ -32,6 +32,4 @@ public class UserDaoService {
 	public void addUser(User user) {
 		userList.add(user);
 	}
-	
-	
 }
