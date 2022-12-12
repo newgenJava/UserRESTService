@@ -11,8 +11,19 @@ public class UserAlreadyExistException extends RuntimeException {
 	 */
 	private static final long serialVersionUID = 4811977906416465556L;
 
-	public UserAlreadyExistException(String message) {
+	private int id;
+
+	public UserAlreadyExistException(String message, int id) {
 		super(message);
+		this.id = id;
 	}
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 }

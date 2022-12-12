@@ -40,7 +40,7 @@ public class UserDaoService {
 		Optional<User> userToBeAdded = userList.stream().filter(predicate).findFirst();
 
 		if (userToBeAdded.isPresent()) {
-			throw new UserAlreadyExistException(" User found for id : " + user.getId());
+			throw new UserAlreadyExistException(" User found for id : " + user.getId(), user.getId());
 		}
 
 		userList.add(user);

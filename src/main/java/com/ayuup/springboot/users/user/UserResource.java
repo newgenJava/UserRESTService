@@ -29,23 +29,23 @@ public class UserResource {
 	@GetMapping(path = "/users/{id}")
 	public User findUserById(@PathVariable int id) {
 		Optional<User> userFound = daoService.findOne(id);
-		
-		if (userFound.isEmpty() ) {
+
+		if (userFound.isEmpty()) {
 			throw new UserNotFoundException(" No User found for id : " + id);
 		}
-		
+
 		return userFound.get();
 	}
 
 	@PostMapping(path = "/users")
 	public ResponseEntity<Object> addUser(@Valid @RequestBody User user) {
-		
+
 		User addedUser = daoService.save(user);
-		
-		UriComponents uriLocation = ServletUriComponentsBuilder.
-				fromCurrentRequest().path("/{id}").buildAndExpand(addedUser.getId());
-		
+
+		UriComponents uriLocation = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(addedUser.getId());
+
 		return ResponseEntity.created(uriLocation.toUri()).build();
-		
+
 	}
 }
