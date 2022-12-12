@@ -1,6 +1,7 @@
 package com.ayuup.springboot.users.user;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,13 @@ public class UserResource {
 
 	@GetMapping(path = "/users/{id}")
 	public User findUserById(@PathVariable int id) {
-		return daoService.findOne(id);
+		Optional<User> userFound = daoService.findOne(id);
+		
+		if (userFound.isEmpty() ) {
+			throw new UserNotFoundException(" No User found for id : " + id);
+		}
+		
+		return userFound.get();
 	}
 
 	@PostMapping(path = "/users")

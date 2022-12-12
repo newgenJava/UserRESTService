@@ -5,15 +5,13 @@ import java.time.LocalDate;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
-
 public class User {
-	
-//	
+
 	private Integer id;
-	
-	@Size(min=5, message = "CHar size more needed")
+
+	@Size(min = 5, message = "CHar size more needed")
 	private String name;
-	
+
 	@Past(message = "Date should be in past")
 	private LocalDate dateTime;
 
@@ -52,7 +50,4 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", dateTime=" + dateTime + "]";
 	}
-	
-	
-
 }
