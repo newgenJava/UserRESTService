@@ -122,7 +122,125 @@
 			]
 		},
 		{
-			"name": "Post",
+			"name": "Get Calls Using JPA",
+			"item": [
+				{
+					"name": "All users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Users should be more than 3\", function(){\r",
+									"    pm.response.to.be.ok;\r",
+									"    var jsonDataResponse = pm.response.json();\r",
+									"    pm.expect(jsonDataResponse).to.length.gte(3);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/jpa/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"jpa",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User With ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User With id=2 exists\", function(){\r",
+									"    var jsonDataResponse = pm.response.json();\r",
+									"    pm.expect(jsonDataResponse.name).to.eql(\"Name2\");\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check if Status is 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/jpa/users/1002",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"jpa",
+								"users",
+								"1002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User With ID does not exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// pm.test(\"User With id=2 exists\", function(){\r",
+									"//     var jsonDataResponse = pm.response.json();\r",
+									"//     pm.expect(jsonDataResponse.name).to.eql(\"Name2\");\r",
+									"// })\r",
+									"\r",
+									"pm.test(\"Check if Status is 404\", function(){\r",
+									"    pm.response.to.have.status(404);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/jpa/users/2234",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"jpa",
+								"users",
+								"2234"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create User",
 			"item": [
 				{
 					"name": "Create User",
@@ -168,6 +286,53 @@
 					"response": []
 				},
 				{
+					"name": "Create User V2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User With id=4 exists\", function(){\r",
+									"    pm.response.to.have.status(201);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 444,\r\n    \"name\": \"Name4\",\r\n    \"dateTime\": \"2010-10-14\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users?version=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "version",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create User Already Exist ID",
 					"event": [
 						{
@@ -203,6 +368,146 @@
 							"port": "8080",
 							"path": [
 								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User Without ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User to be created without id given\", function(){\r",
+									"    pm.response.to.have.status(201);\r",
+									"    // var jsonDataResponse = pm.response.json();\r",
+									"    // pm.expect(jsonDataResponse.name).to.eql(\"Name2\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"NameWithoutId\",\r\n    \"dateTime\": \"2010-10-14\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create User with JPA",
+			"item": [
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User With id=4 exists\", function(){\r",
+									"    pm.response.to.have.status(201);\r",
+									"    // var jsonDataResponse = pm.response.json();\r",
+									"    // pm.expect(jsonDataResponse.name).to.eql(\"Name2\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 10044,\r\n    \"name\": \"Name4\",\r\n    \"dateTime\": \"2010-10-14\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/jpa/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"jpa",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User V2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User With id=4 exists\", function(){\r",
+									"    pm.response.to.have.status(201);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 444,\r\n    \"name\": \"Name4\",\r\n    \"dateTime\": \"2010-10-14\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/jpa/users?version=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"jpa",
+								"users"
+							],
+							"query": [
+								{
+									"key": "version",
+									"value": "2"
+								}
 							]
 						}
 					},

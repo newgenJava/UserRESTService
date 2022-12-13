@@ -39,13 +39,20 @@ public class UserResource {
 
 	@PostMapping(path = "/users")
 	public ResponseEntity<Object> addUser(@Valid @RequestBody User user) {
-
 		User addedUser = daoService.save(user);
-
 		UriComponents uriLocation = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(addedUser.getId());
 
 		return ResponseEntity.created(uriLocation.toUri()).build();
+	}
+	
+	@PostMapping(path = "/users", params="version=2")
+	public ResponseEntity<Object> addUserVersion2(@Valid @RequestBody User user) {
+		user.setName(user.getName() + "::Version2");
+		User addedUser = daoService.save(user);
+		UriComponents uriLocation = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(addedUser.getId());
 
+		return ResponseEntity.created(uriLocation.toUri()).build();
 	}
 }
