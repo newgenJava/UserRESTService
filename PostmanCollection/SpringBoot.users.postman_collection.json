@@ -640,7 +640,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/jpa/users/1002/posts",
+							"raw": "http://localhost:8080/jpa/users/1001/posts",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -649,7 +649,7 @@
 							"path": [
 								"jpa",
 								"users",
-								"1002",
+								"1001",
 								"posts"
 							]
 						}
@@ -668,7 +668,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"User to be created without id given\", function(){\r",
+									"pm.test(\"User to be deleted\", function(){\r",
 									"    pm.response.to.have.status(200);\r",
 									"    // var jsonDataResponse = pm.response.json();\r",
 									"    // pm.expect(jsonDataResponse.name).to.eql(\"Name2\");\r",
@@ -682,7 +682,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/jpa/users/1003",
+							"raw": "http://localhost:8080/jpa/users/1004",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -691,7 +691,7 @@
 							"path": [
 								"jpa",
 								"users",
-								"1003"
+								"1004"
 							]
 						}
 					},
