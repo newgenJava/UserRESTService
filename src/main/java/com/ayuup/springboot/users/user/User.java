@@ -1,10 +1,12 @@
 package com.ayuup.springboot.users.user;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
@@ -22,6 +24,9 @@ public class User {
 
 	@Past(message = "Date should be in past")
 	private LocalDate birth_date;
+	
+	@OneToMany(mappedBy="user")
+	private List<Post> posts;
 
 	protected User() {
 
@@ -57,16 +62,24 @@ public class User {
 		this.name = name;
 	}
 
-	public LocalDate getDateTime() {
-		return birth_date;
-	}
-
-	public void setDateTime(LocalDate dateTime) {
-		this.birth_date = dateTime;
-	}
-
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", dateTime=" + birth_date + "]";
+	}
+
+	public LocalDate getBirth_date() {
+		return birth_date;
+	}
+
+	public void setBirth_date(LocalDate birth_date) {
+		this.birth_date = birth_date;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 }
