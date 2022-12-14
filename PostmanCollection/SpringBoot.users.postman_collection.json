@@ -582,7 +582,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/jpa/users/44",
+							"raw": "http://localhost:8080/jpa/users/1003",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -591,7 +591,7 @@
 							"path": [
 								"jpa",
 								"users",
-								"44"
+								"1003"
 							]
 						}
 					},
