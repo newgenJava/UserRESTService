@@ -13,6 +13,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 //import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -74,5 +75,11 @@ public class UserJPAResource {
 				.buildAndExpand(addedUser.getId());
 
 		return ResponseEntity.created(uriLocation.toUri()).build();
+	}
+	
+	@DeleteMapping(path = "/jpa/users/{id}")
+	public void deleteUser(@PathVariable int id)
+	{
+		jpaService.deleteById(id);
 	}
 }

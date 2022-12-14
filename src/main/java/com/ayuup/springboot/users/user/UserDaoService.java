@@ -13,11 +13,11 @@ public class UserDaoService {
 	private static int userCount = 3;
 
 	private static List<User> userList = new ArrayList<>();
-//	static {
-//		userList.add(new User(1, "Name1"));
-//		userList.add(new User(2, "Name2"));
-//		userList.add(new User(33, "3"));
-//	}
+	static {
+		userList.add(new User(1, "Name1"));
+		userList.add(new User(2, "Name2"));
+		userList.add(new User(33, "3"));
+	}
 
 	public List<User> findAll() {
 		// TODO Auto-generated method stub
