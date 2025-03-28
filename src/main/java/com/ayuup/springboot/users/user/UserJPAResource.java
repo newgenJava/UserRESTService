@@ -55,6 +55,22 @@ public class UserJPAResource {
 		resource.add(linkTo.withRel("all-users"));
 		return resource;
 	}
+	
+	@GetMapping(path = "/jpa/users/name/{name}")
+	public EntityModel<User> retrieveUser(@PathVariable String name) {
+		Optional<User> userFound = jpaService.findByName(name);
+
+		if (userFound.isEmpty()) {
+			throw new UserNotFoundException(" No User found for id : " + name);
+		}
+
+		EntityModel<User> resource = EntityModel.of(userFound.get());
+
+		WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllUsers());
+
+		resource.add(linkTo.withRel("all-users"));
+		return resource;
+	}
 
 	@PostMapping(path = "/jpa/users")
 	public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
@@ -25,7 +26,20 @@ public class UserResource {
 	public List<User> findAllUsers() {
 		return daoService.findAll();
 	}
-
+	
+	
+	@GetMapping(path = "/removeAllElements")
+	public int removeAllElementsGet(@RequestParam List<Integer> nums, @RequestParam int val) {
+		int k = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums.get(i) != val) {
+                nums.set(k++, nums.get(i));
+            }
+        }
+        return k;
+	}
+	
+	
 	@GetMapping(path = "/users/{id}")
 	public User findUserById(@PathVariable int id) {
 		Optional<User> userFound = daoService.findOne(id);

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>User Management</title>
+	<script src="/js/userManagement.js" defer> </script>
+	<link rel="stylesheet" href="/css/styles2.css">
+</head>
+<body onload="fetchUsers()">
+	<h2>User Management</h2>
+	<table border="1" id="userTable">
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+		</tr>
+	</table>
+	<br>
+	<h3>Add User</h3>
+	<input type="text" id="name" placeholder="Enter name">
+	<input type="number" id="id" placeholder="Enter id">
+	<button onclick="addUser()">Add User</button>
+<!-- 	<button onclick="success()">Got TO Success</button> -->
+	<button onclick="fetchUsers()">Load Data</button>
+</body>
+</html>

@@ -15,6 +15,7 @@ public class UserAlreadyExistException extends RuntimeException {
 
 	public UserAlreadyExistException(String message, int id) {
 		super(message);
+		
 		this.id = id;
 	}
 
